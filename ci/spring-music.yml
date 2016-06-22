@@ -30,25 +30,15 @@ jobs:
     - task: maven-test
       privileged: true
       file: resource-music-repo/ci/tasks/maven-package.yml
-    - put: resource-deploy-web-app
-      params:
-        manifest: resource-music-repo/manifest.yml
-        path: resource-music-repo
 
-
-
-
-#jobs:
-#- name: unit-test-deploy
-#  plan:
-#  - get: resource-music-repo
-#    trigger: true
-#
-#  - task: unit
-#    file: resource-music-repo/ci/tasks/unit.yml
-#
-#  - put: resource-deploy-web-app
-#    params:
-#      manifest: resource-music-repo/manifest.yml
-#      path: resource-music-repo
+  - name: promote-to-uat
+    plan:
+    - aggregate:
+      - get: resource-music-repo
+        passed: [maven-test]
+        trigger: true
+      - put: resource-deploy-web-app
+        params:
+          manifest: resource-music-repo/manifest.yml
+          path: resource-music-repo
 

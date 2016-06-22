@@ -11,4 +11,4 @@ inputs:
 
 run:
   path: mvn
-  args: ["-f", "resource-music-repo/pom.xml", "-DskipTests=true", "package"]
+  args: ["-f", "resource-music-repo/pom.xml", "package"]
