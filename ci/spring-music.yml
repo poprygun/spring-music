@@ -24,7 +24,6 @@ jobs:
   - task: unit
     file: resource-music-repo/ci/tasks/unit.yml
 
-  - task: deploy-to-cats
   - put: resource-deploy-web-app
     params:
       manifest: resource-music-repo/manifest.yml
