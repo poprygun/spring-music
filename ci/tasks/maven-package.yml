@@ -9,10 +9,6 @@ image_resource:
 inputs:
   - name: resource-music-repo
 
-#outputs:
-#  - name: jar-file
-#    path: git-repo/target/
-
 run:
   path: mvn
   args: ["-f", "resource-music-repo/pom.xml", "-DskipTests=true", "package"]

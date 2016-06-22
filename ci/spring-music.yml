@@ -21,15 +21,19 @@ resources:
     interval: 60s
 
 jobs:
-  - name: maven-package
+  - name: maven-test
     plan:
     - aggregate:
       - get: resource-music-repo
         trigger: true
       - get: time
-    - task: maven-package
+    - task: maven-test
       privileged: true
       file: resource-music-repo/ci/tasks/maven-package.yml
+    - put: resource-deploy-web-app
+      params:
+        manifest: resource-music-repo/manifest.yml
+        path: resource-music-repo
 
 
 
