@@ -15,17 +15,36 @@ resources:
     space: development
     skip_cert_check: true
 
+- name: time
+  type: time
+  source:
+    interval: 60s
+
 jobs:
-- name: unit
-  plan:
-  - get: resource-music-repo
-    trigger: true
+  - name: maven-package
+    plan:
+    - aggregate:
+      - get: resource-music-repo
+        trigger: true
+      - get: time
+    - task: maven-package
+      privileged: true
+      file: resource-music-repo/ci/tasks/maven-package.yml
 
-  - task: unit
-    file: resource-music-repo/ci/tasks/unit.yml
 
-  - put: resource-deploy-web-app
-    params:
-      manifest: resource-music-repo/manifest.yml
-      path: resource-music-repo
+
+
+#jobs:
+#- name: unit-test-deploy
+#  plan:
+#  - get: resource-music-repo
+#    trigger: true
+#
+#  - task: unit
+#    file: resource-music-repo/ci/tasks/unit.yml
+#
+#  - put: resource-deploy-web-app
+#    params:
+#      manifest: resource-music-repo/manifest.yml
+#      path: resource-music-repo
 
