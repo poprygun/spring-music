@@ -1,0 +1,10 @@
+cfuser=ashumilov
+cfpass=
+cforg=pivotal
+cfspace=development
+cfappname=cd-demo-music
+cfhost=ashumilov.cfapps.pez.pivotal.io
+cfbuildpack=java_buildpack_offline
+
+
+

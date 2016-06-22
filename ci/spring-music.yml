@@ -1,0 +1,32 @@
+resources:
+- name: resource-music-repo
+  type: git
+  source:
+    uri: git@github.com:poprygun/spring-music.git
+    branch: master
+
+- name: resource-deploy-web-app
+  type: cf
+  source:
+    api: https://api.run.pez.pivotal.io
+    username: {{api-username}}
+    password: {{api-password}}
+    organization: pivot-ashumilov
+    space: development
+    skip_cert_check: true
+
+jobs:
+- name: unit
+  plan:
+  - get: resource-music-repo
+    trigger: true
+
+  - task: unit
+    file: resource-music-repo/ci/tasks/unit.yml
+
+  - task: deploy-to-cats
+  - put: resource-deploy-web-app
+    params:
+      manifest: resource-music-repo/manifest.yml
+      path: resource-music-repo
+

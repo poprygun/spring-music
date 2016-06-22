@@ -1,0 +1,10 @@
+---
+platform: linux
+
+image: docker:///maven
+
+inputs:
+  - name: resource-music-repo
+
+run:
+  path: resource-music-repo/ci/tasks/unit.sh
