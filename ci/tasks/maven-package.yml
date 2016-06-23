@@ -9,10 +9,6 @@ image_resource:
 inputs:
   - name: resource-music-repo
 
-outputs:
-  - name: output
-
 run:
-  path: sh
-  args:
-    - resource-music-repo/ci/tasks/maven-package.sh
+  path: mvn
+  args: ["-f", "resource-music-repo/pom.xml", "package"]
