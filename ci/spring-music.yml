@@ -21,19 +21,19 @@ resources:
     interval: 60s
 
 jobs:
-  - name: maven-test
+  - name: deploy-pez
     plan:
     - aggregate:
       - get: resource-music-repo
         trigger: true
       - get: time
-    - task: maven-test
+    - task: maven-package
       privileged: true
       file: resource-music-repo/ci/tasks/maven-package.yml
     - put: resource-deploy-web-app
       params:
         manifest: resource-music-repo/manifest.yml
-        path: resource-music-repo
+        path: output/spring-music.war
 
 
 
