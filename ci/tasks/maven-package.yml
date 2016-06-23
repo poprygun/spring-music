@@ -13,9 +13,6 @@ outputs:
   - name: output
 
 run:
-  path: mvn
-  args: ["-f", "resource-music-repo/pom.xml", "package"]
-
-run:
-  path: mv
-  args: ["-f", "resource-music-repo/target/spring-music.war", "output/spring-music.war"]
+  path: sh
+  args:
+    - resource-music-repo/ci/tasks/maven-package.sh
