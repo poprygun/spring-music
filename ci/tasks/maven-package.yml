@@ -9,6 +9,10 @@ image_resource:
 inputs:
   - name: resource-music-repo
 
+outputs:
+  - name: war-file
+    path: resource-music-repo/target/
+
 run:
   path: mvn
   args: ["-f", "resource-music-repo/pom.xml", "package"]

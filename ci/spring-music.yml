@@ -33,7 +33,7 @@ jobs:
     - put: resource-deploy-web-app
       params:
         manifest: resource-music-repo/manifest.yml
-        path: resource-music-repo/target/spring-music.war
+        path: war-file/spring-music.war
 
 
 
