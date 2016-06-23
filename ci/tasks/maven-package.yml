@@ -10,9 +10,13 @@ inputs:
   - name: resource-music-repo
 
 outputs:
-  - name: war-file
-    path: resource-music-repo/target/
+  - name: output
+    path: output
 
 run:
   path: mvn
   args: ["-f", "resource-music-repo/pom.xml", "package"]
+
+run:
+  path: mv
+  args: ["-f", "resource-music-repo/target/spring-music.war", "output/spring-music.war"]
