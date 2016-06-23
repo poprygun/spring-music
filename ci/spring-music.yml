@@ -15,18 +15,12 @@ resources:
     space: development
     skip_cert_check: true
 
-- name: time
-  type: time
-  source:
-    interval: 60s
-
 jobs:
   - name: deploy-pez
     plan:
     - aggregate:
       - get: resource-music-repo
         trigger: true
-      - get: time
     - task: maven-package
       privileged: true
       file: resource-music-repo/ci/tasks/maven-package.yml
