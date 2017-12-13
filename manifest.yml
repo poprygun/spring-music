@@ -4,4 +4,4 @@ applications:
   host: ashumilov
   path: target/spring-music.war
   services:
-  - mysql
+  - my-db-service
