@@ -1,7 +1,6 @@
 ---
 applications:
 - name: cd-demo-music
-  host: ashumilov
   path: target/spring-music.war
   services:
   - my-db-service
