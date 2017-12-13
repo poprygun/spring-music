@@ -24,10 +24,10 @@ public class CloudDataSourceConfig extends AbstractCloudConfig {
 	
 	@Bean
 	public DataSource dataSource() {
-		
-		int maxPoolSize = 
+
+		int maxPoolSize =
 				Integer.parseInt(env.getProperty("DB_MAX_POOL_SIZE", DEFAULT_DB_MAX_POOL_SIZE));
-		int maxWaitTime = 
+		int maxWaitTime =
 				Integer.parseInt(env.getProperty("DB_MAX_WAIT_TIME", DEFAULT_DB_MAX_WAIT_TIME));
 
 		PooledServiceConnectorConfig.PoolConfig poolConfig =
@@ -36,8 +36,14 @@ public class CloudDataSourceConfig extends AbstractCloudConfig {
 	    DataSourceConfig.ConnectionConfig connectionConfig =
 	            new DataSourceConfig.ConnectionConfig("characterEncoding=UTF-8");
 
+
 		return connectionFactory().dataSource(new DataSourceConfig(poolConfig, connectionConfig));
 
 	}
-	
+
+
+//	@Bean
+//	public DataSource dataSource() {
+//		return connectionFactory().dataSource();
+//	}
 }
