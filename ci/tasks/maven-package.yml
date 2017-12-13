@@ -16,6 +16,3 @@ run:
   path: sh
   args:
     - resource-music-repo/ci/tasks/maven-package.sh
-
-caches:
-  - path: .m2/
