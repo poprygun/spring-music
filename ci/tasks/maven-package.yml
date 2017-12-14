@@ -3,12 +3,11 @@ platform: linux
 image_resource:
   type: s3
   source:
-    access_key_id: {{s3_access_key_id}}
-    secret_access_key: {{s3_secret_access_key}}
-    endpoint: {{s3_endpoint}}
-    bucket: {{s3_bucket}}
+    s3_access_key_id:
+    s3_secret_access_key:
+    s3_endpoint:
+    s3_bucket:
     regexp: "maven"
-
 
 inputs:
   - name: resource-music-repo
