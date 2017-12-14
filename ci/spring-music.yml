@@ -1,34 +1,72 @@
-resources:
-- name: resource-music-repo
-  type: git
-  source:
-    uri: https://github.com/poprygun/spring-music.git
-    branch: master
+# resources:
+# - name: maven
+#   type: s3
+#   source:
+#     access_key_id: {{s3_access_key_id}}
+#     secret_access_key: {{s3_secret_access_key}}
+#     endpoint: {{s3_endpoint}}
+#     bucket: {{s3_bucket}}
+#     regexp: "maven/maven-(.*).tgz"
 
-- name: resource-deploy-web-app
-  type: cf
-  source:
-    api: https://api.run.pivotal.io
-    username: {{api-username}}
-    password: {{api-password}}
-    organization: {{api-org}}
-    space: {{api-space}}
-    skip_cert_check: true
+# - name: resource-music-repo
+#   type: git
+#   source:
+#     uri: https://github.com/poprygun/spring-music.git
+#     branch: master
+#
+# - name: resource-deploy-web-app
+#   type: cf
+#   source:
+#     api: https://api.run.pivotal.io
+#     username: {{api-username}}
+#     password: {{api-password}}
+#     organization: {{api-org}}
+#     space: {{api-space}}
+#     skip_cert_check: true
 
 jobs:
-  - name: deploy-pws
+  - name: hello-ubuntu-s3
     plan:
-    - aggregate:
-      - get: resource-music-repo
-        trigger: true
-    - task: maven-package
-      file: resource-music-repo/ci/tasks/maven-package.yml
-      params:
-        s3_access_key_id: {{s3_access_key_id}}
-        s3_secret_access_key: {{s3_secret_access_key}}
-        s3_endpoint: {{s3_endpoint}}
-        s3_bucket: {{s3_bucket}}
-    - put: resource-deploy-web-app
-      params:
-        manifest: resource-music-repo/manifest.yml
-        path: output/spring-music.war
+    - task: run-with-image-from-s3
+      config:
+        platform: linux
+        image_resource:
+          type: s3
+          source:
+            access_key_id: {{s3_access_key_id}}
+            secret_access_key: {{s3_secret_access_key}}
+            endpoint: {{s3_endpoint}}
+            bucket: {{s3_bucket}}
+            regexp: "maven/maven-(.*).tgz"
+            # region_name:
+          params:
+            unpack: true
+        run:
+          path: sh
+          args:
+          - -c
+          - echo "I can run with the image from S3"
+  # - name: deploy-pws
+  #   plan:
+  #   - aggregate:
+  #     - get: resource-music-repo
+  #       trigger: true
+  #     - get: maven
+  #       params:
+  #         unpack: true
+  #   - task: maven-package
+  #     image: maven
+  #     config:
+  #       platform: linux
+  #       inputs:
+  #         - name: resource-music-repo
+  #       outputs:
+  #         - name: output
+  #       run:
+  #         path: sh
+  #         args:
+  #           - resource-music-repo/ci/tasks/maven-package.sh
+  #   - put: resource-deploy-web-app
+  #     params:
+  #       manifest: resource-music-repo/manifest.yml
+  #       path: output/spring-music.war
