@@ -1,10 +1,14 @@
 platform: linux
 
 image_resource:
-  type: docker-image
+  type: s3
   source:
-    repository: maven
-    tag: latest
+    access_key_id: {{s3_access_key_id}}
+    secret_access_key: {{s3_secret_access_key}}
+    endpoint: {{s3_endpoint}}
+    bucket: {{s3_bucket}}
+    regexp: "maven"
+
 
 inputs:
   - name: resource-music-repo
