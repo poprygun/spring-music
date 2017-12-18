@@ -7,13 +7,13 @@ Often, concourse environment does not have access to docker-hub.  Here, we demon
 
 **Concourse version > 3.8 required to run this example.**
 
-##To setup a local concourse instance using vagrant.
+## To setup a local concourse instance using vagrant.
 
 ```bash
 bosh create-env concourse-lite.yml --state concourse-lite-state.json
 ```
 
-##To configure and run pipeline to load maven docker image to S3.
+## To configure and run pipeline to load maven docker image to S3.
 
 ```bash
 fly -t spring-music-target login -c http://192.168.100.4:8080
@@ -21,7 +21,7 @@ fly -t spring-music-target set-pipeline -c ci/docker-resources-pipeline.yml -p d
 fly -t spring-music-target unpause-pipeline -p docker-resources-pipeline
 ```
 
-##To configure and depoy a pipeline to execute build steps.
+## To configure and depoy a pipeline to execute build steps.
 
 ```bash
 fly -t spring-music-target set-pipeline -c ci/spring-music.yml -p spring-music-pipeline -l ci/credentials.yml
