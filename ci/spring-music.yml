@@ -24,7 +24,7 @@ resources:
     space: {{api-space}}
     skip_cert_check: true
 
-jobs:    
+jobs:
 - name: deploy-pws
   plan:
   - aggregate:
