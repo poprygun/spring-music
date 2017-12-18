@@ -12,6 +12,8 @@ $ vagrant up
 ##To configure and depoy a pipeline
 ~~~
 $ fly -t spring-music-target login -c http://192.168.100.4:8080
+$ fly -t spring-music-target set-pipeline -c ci/docker-resources-pipeline.yml -p docker-resources-pipeline -l ci/credentials.yml
+fly -t spring-music-target unpause-pipeline -p docker-resources-pipeline
 $ fly -t spring-music-target set-pipeline -c ci/spring-music.yml -p spring-music-pipeline -l ci/credentials.yml
 $ fly -t spring-music-target unpause-pipeline -p spring-music-pipeline
 

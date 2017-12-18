@@ -2,6 +2,5 @@
 applications:
 - name: cd-demo-music
   path: target/spring-music.war
-  host: ci-cd-demo-music
   services:
   - my-db-service
